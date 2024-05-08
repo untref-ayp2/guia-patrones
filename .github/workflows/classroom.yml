@@ -1,0 +1,170 @@
+name: Autograding Tests
+"on":
+  - push
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: TestArchivosMusica
+        id: testarchivosmusica
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestArchivosMusica
+          setup-command: ""
+          command: go test ./... -run ^TestArchivosMusica$
+          timeout: 10
+          max-score: 1
+      - name: TestEjemplo
+        id: testejemplo
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestEjemplo
+          setup-command: ""
+          command: go test ./... -run ^TestEjemplo$
+          timeout: 10
+          max-score: 1
+      - name: TestOperacionUno
+        id: testoperacionuno
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestOperacionUno
+          setup-command: ""
+          command: go test ./... -run ^TestOperacionUno$
+          timeout: 10
+          max-score: 1
+      - name: TestOperacionDos
+        id: testoperaciondos
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestOperacionDos
+          setup-command: ""
+          command: go test ./... -run ^TestOperacionDos$
+          timeout: 10
+          max-score: 1
+      - name: TestOperacionTres
+        id: testoperaciontres
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestOperacionTres
+          setup-command: ""
+          command: go test ./... -run ^TestOperacionTres$
+          timeout: 10
+          max-score: 1
+      - name: TestHasNextPosicionesPares
+        id: testhasnextposicionespares
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestHasNextPosicionesPares
+          setup-command: ""
+          command: go test ./... -run ^TestHasNextPosicionesPares$
+          timeout: 10
+          max-score: 1
+      - name: TestHasNextWhenIsEmptyPosicionesPares
+        id: testhasnextwhenisemptyposicionespares
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestHasNextWhenIsEmptyPosicionesPares
+          setup-command: ""
+          command: go test ./... -run ^TestHasNextWhenIsEmptyPosicionesPares$
+          timeout: 10
+          max-score: 1
+      - name: TestHasNextWhenEmptiedPosicionesPares
+        id: testhasnextwhenemptiedposicionespares
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestHasNextWhenEmptiedPosicionesPares
+          setup-command: ""
+          command: go test ./... -run ^TestHasNextWhenEmptiedPosicionesPares$
+          timeout: 10
+          max-score: 1
+      - name: TestNextPosicionesPares
+        id: testnextposicionespares
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestNextPosicionesPares
+          setup-command: ""
+          command: go test ./... -run ^TestNextPosicionesPares$
+          timeout: 10
+          max-score: 1
+      - name: TestErrorsWhenEmptiedPosicionesPares
+        id: testerrorswhenemptiedposicionespares
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestErrorsWhenEmptiedPosicionesPares
+          setup-command: ""
+          command: go test ./... -run ^TestErrorsWhenEmptiedPosicionesPares$
+          timeout: 10
+          max-score: 1
+      - name: TestHasNext
+        id: testhasnext
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestHasNext
+          setup-command: ""
+          command: go test ./... -run ^TestHasNext$
+          timeout: 10
+          max-score: 1
+      - name: TestHasNextWhenIsEmpty
+        id: testhasnextwhenisempty
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestHasNextWhenIsEmpty
+          setup-command: ""
+          command: go test ./... -run ^TestHasNextWhenIsEmpty$
+          timeout: 10
+          max-score: 1
+      - name: TestHasNextWhenEmptied
+        id: testhasnextwhenemptied
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestHasNextWhenEmptied
+          setup-command: ""
+          command: go test ./... -run ^TestHasNextWhenEmptied$
+          timeout: 10
+          max-score: 1
+      - name: TestNext
+        id: testnext
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestNext
+          setup-command: ""
+          command: go test ./... -run ^TestNext$
+          timeout: 10
+          max-score: 1
+      - name: TestErrorsWhenEmptied
+        id: testerrorswhenemptied
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: TestErrorsWhenEmptied
+          setup-command: ""
+          command: go test ./... -run ^TestErrorsWhenEmptied$
+          timeout: 10
+          max-score: 1
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          TESTARCHIVOSMUSICA_RESULTS: ${{steps.testarchivosmusica.outputs.result}}
+          TESTEJEMPLO_RESULTS: ${{steps.testejemplo.outputs.result}}
+          TESTOPERACIONUNO_RESULTS: ${{steps.testoperacionuno.outputs.result}}
+          TESTOPERACIONDOS_RESULTS: ${{steps.testoperaciondos.outputs.result}}
+          TESTOPERACIONTRES_RESULTS: ${{steps.testoperaciontres.outputs.result}}
+          TESTHASNEXTPOSICIONESPARES_RESULTS: ${{steps.testhasnextposicionespares.outputs.result}}
+          TESTHASNEXTWHENISEMPTYPOSICIONESPARES_RESULTS: ${{steps.testhasnextwhenisemptyposicionespares.outputs.result}}
+          TESTHASNEXTWHENEMPTIEDPOSICIONESPARES_RESULTS: ${{steps.testhasnextwhenemptiedposicionespares.outputs.result}}
+          TESTNEXTPOSICIONESPARES_RESULTS: ${{steps.testnextposicionespares.outputs.result}}
+          TESTERRORSWHENEMPTIEDPOSICIONESPARES_RESULTS: ${{steps.testerrorswhenemptiedposicionespares.outputs.result}}
+          TESTHASNEXT_RESULTS: ${{steps.testhasnext.outputs.result}}
+          TESTHASNEXTWHENISEMPTY_RESULTS: ${{steps.testhasnextwhenisempty.outputs.result}}
+          TESTHASNEXTWHENEMPTIED_RESULTS: ${{steps.testhasnextwhenemptied.outputs.result}}
+          TESTNEXT_RESULTS: ${{steps.testnext.outputs.result}}
+          TESTERRORSWHENEMPTIED_RESULTS: ${{steps.testerrorswhenemptied.outputs.result}}
+        with:
+          runners: testarchivosmusica,testejemplo,testoperacionuno,testoperaciondos,testoperaciontres,testhasnextposicionespares,testhasnextwhenisemptyposicionespares,testhasnextwhenemptiedposicionespares,testnextposicionespares,testerrorswhenemptiedposicionespares,testhasnext,testhasnextwhenisempty,testhasnextwhenemptied,testnext,testerrorswhenemptied
