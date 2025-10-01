@@ -5,7 +5,7 @@ type Iterator[T comparable] interface {
 	HasNext() bool
 	// Next devuelve el siguiente elemento.
 	// Si no hay más elementos, devuelve un error.
-	// Primero avanza el iterador y luego devuelve el elemento.
+	// Devuelve el elemento actual y luego avanza el iterador.
 	Next() (T, error)
 }
 
@@ -13,14 +13,14 @@ type DoubleIterator[T comparable] interface {
 	// HasNext verifica si hay un siguiente elemento.
 	// Si no hay más elementos, devuelve false.
 	HasNext() bool
-	// Next devuelve el siguiente elemento.
+	// Next devuelve el elemento actual y luego avanza el iterador
 	// Si no hay más elementos, devuelve un error.
 	Next() (T, error)
 	//
 	// HasPrevious verifica si hay un elemento anterior.
 	// Si no hay más elementos, devuelve false.
 	HasPrevious() bool
-	// Previous devuelve el elemento anterior.
+	// Previous devuelve el elemento actual y luego retrocede el iterador.
 	// Si no hay más elementos, devuelve un error.
 	Previous() (T, error)
 }
